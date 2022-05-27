@@ -1,0 +1,101 @@
+spec_version: 1.2
+package: crypto_credit
+
+database:
+  kind: postgres
+  host: localhost
+  port: 5432
+  user: dipdup
+  password: postgres_password
+  database: dipdup
+  schema_name: public
+  immune_tables:
+    - ipfs
+
+datasources:
+  tzkt:
+    kind: tzkt
+    url: https://api.ithacanet.tzkt.io
+
+hasura:
+  url: http://localhost:42000/
+  admin_secret: admin_password
+  allow_aggregations: True
+  select_limit: 1000
+
+advanced:
+  early_realtime: True
+  postpone_jobs: True
+  reindex:
+    manual: wipe
+    migration: exception
+    rollback: wipe
+    config_modified: exception
+    schema_modified: exception
+
+contracts:
+  tezotopia_nft_registery:
+    address: KT1XKxvLdFzrhTF7KqLHFHuFhp4Ujq8x7vqA
+    typename: tezotopia_nft_registery
+
+  crypto_credit:
+    address: KT1D69JQRNLN4vkiE4nRtU4atpC5QZjtn2Ap
+    typename: crypto_credit
+
+indexes:
+  operations:
+    kind: operation
+    datasource: tzkt
+    contracts:
+      - tezotopia_nft_registery
+      - crypto_credit
+    handlers:
+      - callback: main.on_create_listing
+        pattern:
+          - destination: crypto_credit
+            entrypoint: create_listing
+
+      - callback: main.on_cancel_listing
+        pattern:
+          - destination: crypto_credit
+            entrypoint: cancel_listing
+
+      - callback: main.on_create_offer
+        pattern:
+          - destination: crypto_credit
+            entrypoint: create_offer
+
+      - callback: main.on_cancel_offer
+        pattern:
+          - destination: crypto_credit
+            entrypoint: cancel_offer
+
+      - callback: main.on_accept_offer
+        pattern:
+          - destination: crypto_credit
+            entrypoint: accept_offer
+
+      - callback: main.on_repay_loan
+        pattern:
+          - destination: crypto_credit
+            entrypoint: repay_loan
+
+      - callback: tezotopia_nft_registery.on_mint
+        pattern:
+          - destination: tezotopia_nft_registery
+            entrypoint: mint
+
+      - callback: tezotopia_nft_registery.on_transfer
+        pattern:
+          - destination: tezotopia_nft_registery
+            entrypoint: transfer
+
+      - callback: tezotopia_nft_registery.on_marketplace_transfer
+        pattern:
+          - destination: tezotopia_nft_registery
+            entrypoint: marketplace_transfer
+
+      - callback: tezotopia_nft_registery.on_update_attributes
+        pattern:
+          - destination: tezotopia_nft_registery
+            entrypoint: update_attributes

@@ -1,0 +1,5815 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "dipdup_contract"
+"""
+type dipdup_contract {
+  address: String!
+  created_at: timestamptz!
+  name: String!
+  typename: String
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_contract"
+"""
+type dipdup_contract_aggregate {
+  aggregate: dipdup_contract_aggregate_fields
+  nodes: [dipdup_contract!]!
+}
+
+"""
+aggregate fields of "dipdup_contract"
+"""
+type dipdup_contract_aggregate_fields {
+  count(columns: [dipdup_contract_select_column!], distinct: Boolean): Int!
+  max: dipdup_contract_max_fields
+  min: dipdup_contract_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_contract". All fields are combined with a logical 'AND'.
+"""
+input dipdup_contract_bool_exp {
+  _and: [dipdup_contract_bool_exp!]
+  _not: dipdup_contract_bool_exp
+  _or: [dipdup_contract_bool_exp!]
+  address: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  name: String_comparison_exp
+  typename: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_contract"
+"""
+enum dipdup_contract_constraint {
+  """unique or primary key constraint"""
+  dipdup_contract_pkey
+}
+
+"""
+input type for inserting data into table "dipdup_contract"
+"""
+input dipdup_contract_insert_input {
+  address: String
+  created_at: timestamptz
+  name: String
+  typename: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_contract_max_fields {
+  address: String
+  created_at: timestamptz
+  name: String
+  typename: String
+  updated_at: timestamptz
+}
+
+"""
+columns and relationships of "dipdup_contract_metadata"
+"""
+type dipdup_contract_metadata {
+  contract: String!
+  created_at: timestamptz!
+  id: Int!
+  metadata(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  network: String!
+  update_id: Int!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_contract_metadata"
+"""
+type dipdup_contract_metadata_aggregate {
+  aggregate: dipdup_contract_metadata_aggregate_fields
+  nodes: [dipdup_contract_metadata!]!
+}
+
+"""
+aggregate fields of "dipdup_contract_metadata"
+"""
+type dipdup_contract_metadata_aggregate_fields {
+  avg: dipdup_contract_metadata_avg_fields
+  count(columns: [dipdup_contract_metadata_select_column!], distinct: Boolean): Int!
+  max: dipdup_contract_metadata_max_fields
+  min: dipdup_contract_metadata_min_fields
+  stddev: dipdup_contract_metadata_stddev_fields
+  stddev_pop: dipdup_contract_metadata_stddev_pop_fields
+  stddev_samp: dipdup_contract_metadata_stddev_samp_fields
+  sum: dipdup_contract_metadata_sum_fields
+  var_pop: dipdup_contract_metadata_var_pop_fields
+  var_samp: dipdup_contract_metadata_var_samp_fields
+  variance: dipdup_contract_metadata_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_contract_metadata_append_input {
+  metadata: jsonb
+}
+
+"""aggregate avg on columns"""
+type dipdup_contract_metadata_avg_fields {
+  id: Float
+  update_id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_contract_metadata". All fields are combined with a logical 'AND'.
+"""
+input dipdup_contract_metadata_bool_exp {
+  _and: [dipdup_contract_metadata_bool_exp!]
+  _not: dipdup_contract_metadata_bool_exp
+  _or: [dipdup_contract_metadata_bool_exp!]
+  contract: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  metadata: jsonb_comparison_exp
+  network: String_comparison_exp
+  update_id: Int_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_contract_metadata"
+"""
+enum dipdup_contract_metadata_constraint {
+  """unique or primary key constraint"""
+  dipdup_contract_metadata_pkey
+
+  """unique or primary key constraint"""
+  uid_dipdup_cont_network_1ae32f
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input dipdup_contract_metadata_delete_at_path_input {
+  metadata: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input dipdup_contract_metadata_delete_elem_input {
+  metadata: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input dipdup_contract_metadata_delete_key_input {
+  metadata: String
+}
+
+"""
+input type for incrementing numeric columns in table "dipdup_contract_metadata"
+"""
+input dipdup_contract_metadata_inc_input {
+  id: Int
+  update_id: Int
+}
+
+"""
+input type for inserting data into table "dipdup_contract_metadata"
+"""
+input dipdup_contract_metadata_insert_input {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  metadata: jsonb
+  network: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_contract_metadata_max_fields {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  network: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type dipdup_contract_metadata_min_fields {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  network: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_contract_metadata"
+"""
+type dipdup_contract_metadata_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_contract_metadata!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_contract_metadata"
+"""
+input dipdup_contract_metadata_on_conflict {
+  constraint: dipdup_contract_metadata_constraint!
+  update_columns: [dipdup_contract_metadata_update_column!]! = []
+  where: dipdup_contract_metadata_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_contract_metadata"."""
+input dipdup_contract_metadata_order_by {
+  contract: order_by
+  created_at: order_by
+  id: order_by
+  metadata: order_by
+  network: order_by
+  update_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_contract_metadata"""
+input dipdup_contract_metadata_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_contract_metadata_prepend_input {
+  metadata: jsonb
+}
+
+"""
+select columns of table "dipdup_contract_metadata"
+"""
+enum dipdup_contract_metadata_select_column {
+  """column name"""
+  contract
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  network
+
+  """column name"""
+  update_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_contract_metadata"
+"""
+input dipdup_contract_metadata_set_input {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  metadata: jsonb
+  network: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type dipdup_contract_metadata_stddev_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type dipdup_contract_metadata_stddev_pop_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type dipdup_contract_metadata_stddev_samp_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate sum on columns"""
+type dipdup_contract_metadata_sum_fields {
+  id: Int
+  update_id: Int
+}
+
+"""
+update columns of table "dipdup_contract_metadata"
+"""
+enum dipdup_contract_metadata_update_column {
+  """column name"""
+  contract
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  network
+
+  """column name"""
+  update_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type dipdup_contract_metadata_var_pop_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate var_samp on columns"""
+type dipdup_contract_metadata_var_samp_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate variance on columns"""
+type dipdup_contract_metadata_variance_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate min on columns"""
+type dipdup_contract_min_fields {
+  address: String
+  created_at: timestamptz
+  name: String
+  typename: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_contract"
+"""
+type dipdup_contract_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_contract!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_contract"
+"""
+input dipdup_contract_on_conflict {
+  constraint: dipdup_contract_constraint!
+  update_columns: [dipdup_contract_update_column!]! = []
+  where: dipdup_contract_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_contract"."""
+input dipdup_contract_order_by {
+  address: order_by
+  created_at: order_by
+  name: order_by
+  typename: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_contract"""
+input dipdup_contract_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "dipdup_contract"
+"""
+enum dipdup_contract_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  created_at
+
+  """column name"""
+  name
+
+  """column name"""
+  typename
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_contract"
+"""
+input dipdup_contract_set_input {
+  address: String
+  created_at: timestamptz
+  name: String
+  typename: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "dipdup_contract"
+"""
+enum dipdup_contract_update_column {
+  """column name"""
+  address
+
+  """column name"""
+  created_at
+
+  """column name"""
+  name
+
+  """column name"""
+  typename
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "dipdup_head"
+"""
+type dipdup_head {
+  created_at: timestamptz!
+  hash: String!
+  level: Int!
+  name: String!
+  timestamp: timestamptz!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_head"
+"""
+type dipdup_head_aggregate {
+  aggregate: dipdup_head_aggregate_fields
+  nodes: [dipdup_head!]!
+}
+
+"""
+aggregate fields of "dipdup_head"
+"""
+type dipdup_head_aggregate_fields {
+  avg: dipdup_head_avg_fields
+  count(columns: [dipdup_head_select_column!], distinct: Boolean): Int!
+  max: dipdup_head_max_fields
+  min: dipdup_head_min_fields
+  stddev: dipdup_head_stddev_fields
+  stddev_pop: dipdup_head_stddev_pop_fields
+  stddev_samp: dipdup_head_stddev_samp_fields
+  sum: dipdup_head_sum_fields
+  var_pop: dipdup_head_var_pop_fields
+  var_samp: dipdup_head_var_samp_fields
+  variance: dipdup_head_variance_fields
+}
+
+"""aggregate avg on columns"""
+type dipdup_head_avg_fields {
+  level: Float
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_head". All fields are combined with a logical 'AND'.
+"""
+input dipdup_head_bool_exp {
+  _and: [dipdup_head_bool_exp!]
+  _not: dipdup_head_bool_exp
+  _or: [dipdup_head_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  hash: String_comparison_exp
+  level: Int_comparison_exp
+  name: String_comparison_exp
+  timestamp: timestamptz_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_head"
+"""
+enum dipdup_head_constraint {
+  """unique or primary key constraint"""
+  dipdup_head_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "dipdup_head"
+"""
+input dipdup_head_inc_input {
+  level: Int
+}
+
+"""
+input type for inserting data into table "dipdup_head"
+"""
+input dipdup_head_insert_input {
+  created_at: timestamptz
+  hash: String
+  level: Int
+  name: String
+  timestamp: timestamptz
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_head_max_fields {
+  created_at: timestamptz
+  hash: String
+  level: Int
+  name: String
+  timestamp: timestamptz
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type dipdup_head_min_fields {
+  created_at: timestamptz
+  hash: String
+  level: Int
+  name: String
+  timestamp: timestamptz
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_head"
+"""
+type dipdup_head_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_head!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_head"
+"""
+input dipdup_head_on_conflict {
+  constraint: dipdup_head_constraint!
+  update_columns: [dipdup_head_update_column!]! = []
+  where: dipdup_head_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_head"."""
+input dipdup_head_order_by {
+  created_at: order_by
+  hash: order_by
+  level: order_by
+  name: order_by
+  timestamp: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_head"""
+input dipdup_head_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "dipdup_head"
+"""
+enum dipdup_head_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  level
+
+  """column name"""
+  name
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_head"
+"""
+input dipdup_head_set_input {
+  created_at: timestamptz
+  hash: String
+  level: Int
+  name: String
+  timestamp: timestamptz
+  updated_at: timestamptz
+}
+
+"""
+columns and relationships of "dipdup_head_status"
+"""
+type dipdup_head_status {
+  name: String
+  status: String
+}
+
+"""
+aggregated selection of "dipdup_head_status"
+"""
+type dipdup_head_status_aggregate {
+  aggregate: dipdup_head_status_aggregate_fields
+  nodes: [dipdup_head_status!]!
+}
+
+"""
+aggregate fields of "dipdup_head_status"
+"""
+type dipdup_head_status_aggregate_fields {
+  count(columns: [dipdup_head_status_select_column!], distinct: Boolean): Int!
+  max: dipdup_head_status_max_fields
+  min: dipdup_head_status_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_head_status". All fields are combined with a logical 'AND'.
+"""
+input dipdup_head_status_bool_exp {
+  _and: [dipdup_head_status_bool_exp!]
+  _not: dipdup_head_status_bool_exp
+  _or: [dipdup_head_status_bool_exp!]
+  name: String_comparison_exp
+  status: String_comparison_exp
+}
+
+"""
+input type for inserting data into table "dipdup_head_status"
+"""
+input dipdup_head_status_insert_input {
+  name: String
+  status: String
+}
+
+"""aggregate max on columns"""
+type dipdup_head_status_max_fields {
+  name: String
+  status: String
+}
+
+"""aggregate min on columns"""
+type dipdup_head_status_min_fields {
+  name: String
+  status: String
+}
+
+"""
+response of any mutation on the table "dipdup_head_status"
+"""
+type dipdup_head_status_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_head_status!]!
+}
+
+"""Ordering options when selecting data from "dipdup_head_status"."""
+input dipdup_head_status_order_by {
+  name: order_by
+  status: order_by
+}
+
+"""
+select columns of table "dipdup_head_status"
+"""
+enum dipdup_head_status_select_column {
+  """column name"""
+  name
+
+  """column name"""
+  status
+}
+
+"""
+input type for updating data in table "dipdup_head_status"
+"""
+input dipdup_head_status_set_input {
+  name: String
+  status: String
+}
+
+"""aggregate stddev on columns"""
+type dipdup_head_stddev_fields {
+  level: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type dipdup_head_stddev_pop_fields {
+  level: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type dipdup_head_stddev_samp_fields {
+  level: Float
+}
+
+"""aggregate sum on columns"""
+type dipdup_head_sum_fields {
+  level: Int
+}
+
+"""
+update columns of table "dipdup_head"
+"""
+enum dipdup_head_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  level
+
+  """column name"""
+  name
+
+  """column name"""
+  timestamp
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type dipdup_head_var_pop_fields {
+  level: Float
+}
+
+"""aggregate var_samp on columns"""
+type dipdup_head_var_samp_fields {
+  level: Float
+}
+
+"""aggregate variance on columns"""
+type dipdup_head_variance_fields {
+  level: Float
+}
+
+"""
+columns and relationships of "dipdup_index"
+"""
+type dipdup_index {
+  config_hash: String!
+  created_at: timestamptz!
+  level: Int!
+  name: String!
+
+  """
+  NEW: NEW\nSYNCING: SYNCING\nREALTIME: REALTIME\nROLLBACK: ROLLBACK\nONESHOT: ONESHOT
+  """
+  status: String!
+  template: String
+  template_values(
+    """JSON select path"""
+    path: String
+  ): jsonb
+
+  """
+  operation: operation\nbig_map: big_map\nhead: head\ntoken_transfer: token_transfer
+  """
+  type: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_index"
+"""
+type dipdup_index_aggregate {
+  aggregate: dipdup_index_aggregate_fields
+  nodes: [dipdup_index!]!
+}
+
+"""
+aggregate fields of "dipdup_index"
+"""
+type dipdup_index_aggregate_fields {
+  avg: dipdup_index_avg_fields
+  count(columns: [dipdup_index_select_column!], distinct: Boolean): Int!
+  max: dipdup_index_max_fields
+  min: dipdup_index_min_fields
+  stddev: dipdup_index_stddev_fields
+  stddev_pop: dipdup_index_stddev_pop_fields
+  stddev_samp: dipdup_index_stddev_samp_fields
+  sum: dipdup_index_sum_fields
+  var_pop: dipdup_index_var_pop_fields
+  var_samp: dipdup_index_var_samp_fields
+  variance: dipdup_index_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_index_append_input {
+  template_values: jsonb
+}
+
+"""aggregate avg on columns"""
+type dipdup_index_avg_fields {
+  level: Float
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_index". All fields are combined with a logical 'AND'.
+"""
+input dipdup_index_bool_exp {
+  _and: [dipdup_index_bool_exp!]
+  _not: dipdup_index_bool_exp
+  _or: [dipdup_index_bool_exp!]
+  config_hash: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  level: Int_comparison_exp
+  name: String_comparison_exp
+  status: String_comparison_exp
+  template: String_comparison_exp
+  template_values: jsonb_comparison_exp
+  type: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_index"
+"""
+enum dipdup_index_constraint {
+  """unique or primary key constraint"""
+  dipdup_index_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input dipdup_index_delete_at_path_input {
+  template_values: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input dipdup_index_delete_elem_input {
+  template_values: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input dipdup_index_delete_key_input {
+  template_values: String
+}
+
+"""
+input type for incrementing numeric columns in table "dipdup_index"
+"""
+input dipdup_index_inc_input {
+  level: Int
+}
+
+"""
+input type for inserting data into table "dipdup_index"
+"""
+input dipdup_index_insert_input {
+  config_hash: String
+  created_at: timestamptz
+  level: Int
+  name: String
+
+  """
+  NEW: NEW\nSYNCING: SYNCING\nREALTIME: REALTIME\nROLLBACK: ROLLBACK\nONESHOT: ONESHOT
+  """
+  status: String
+  template: String
+  template_values: jsonb
+
+  """
+  operation: operation\nbig_map: big_map\nhead: head\ntoken_transfer: token_transfer
+  """
+  type: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_index_max_fields {
+  config_hash: String
+  created_at: timestamptz
+  level: Int
+  name: String
+
+  """
+  NEW: NEW\nSYNCING: SYNCING\nREALTIME: REALTIME\nROLLBACK: ROLLBACK\nONESHOT: ONESHOT
+  """
+  status: String
+  template: String
+
+  """
+  operation: operation\nbig_map: big_map\nhead: head\ntoken_transfer: token_transfer
+  """
+  type: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type dipdup_index_min_fields {
+  config_hash: String
+  created_at: timestamptz
+  level: Int
+  name: String
+
+  """
+  NEW: NEW\nSYNCING: SYNCING\nREALTIME: REALTIME\nROLLBACK: ROLLBACK\nONESHOT: ONESHOT
+  """
+  status: String
+  template: String
+
+  """
+  operation: operation\nbig_map: big_map\nhead: head\ntoken_transfer: token_transfer
+  """
+  type: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_index"
+"""
+type dipdup_index_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_index!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_index"
+"""
+input dipdup_index_on_conflict {
+  constraint: dipdup_index_constraint!
+  update_columns: [dipdup_index_update_column!]! = []
+  where: dipdup_index_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_index"."""
+input dipdup_index_order_by {
+  config_hash: order_by
+  created_at: order_by
+  level: order_by
+  name: order_by
+  status: order_by
+  template: order_by
+  template_values: order_by
+  type: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_index"""
+input dipdup_index_pk_columns_input {
+  name: String!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_index_prepend_input {
+  template_values: jsonb
+}
+
+"""
+select columns of table "dipdup_index"
+"""
+enum dipdup_index_select_column {
+  """column name"""
+  config_hash
+
+  """column name"""
+  created_at
+
+  """column name"""
+  level
+
+  """column name"""
+  name
+
+  """column name"""
+  status
+
+  """column name"""
+  template
+
+  """column name"""
+  template_values
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_index"
+"""
+input dipdup_index_set_input {
+  config_hash: String
+  created_at: timestamptz
+  level: Int
+  name: String
+
+  """
+  NEW: NEW\nSYNCING: SYNCING\nREALTIME: REALTIME\nROLLBACK: ROLLBACK\nONESHOT: ONESHOT
+  """
+  status: String
+  template: String
+  template_values: jsonb
+
+  """
+  operation: operation\nbig_map: big_map\nhead: head\ntoken_transfer: token_transfer
+  """
+  type: String
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type dipdup_index_stddev_fields {
+  level: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type dipdup_index_stddev_pop_fields {
+  level: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type dipdup_index_stddev_samp_fields {
+  level: Float
+}
+
+"""aggregate sum on columns"""
+type dipdup_index_sum_fields {
+  level: Int
+}
+
+"""
+update columns of table "dipdup_index"
+"""
+enum dipdup_index_update_column {
+  """column name"""
+  config_hash
+
+  """column name"""
+  created_at
+
+  """column name"""
+  level
+
+  """column name"""
+  name
+
+  """column name"""
+  status
+
+  """column name"""
+  template
+
+  """column name"""
+  template_values
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type dipdup_index_var_pop_fields {
+  level: Float
+}
+
+"""aggregate var_samp on columns"""
+type dipdup_index_var_samp_fields {
+  level: Float
+}
+
+"""aggregate variance on columns"""
+type dipdup_index_variance_fields {
+  level: Float
+}
+
+"""
+columns and relationships of "dipdup_schema"
+"""
+type dipdup_schema {
+  created_at: timestamptz!
+  hash: String!
+  name: String!
+
+  """
+  manual: manual\nmigration: migration\nrollback: rollback\nconfig_modified: config_modified\nschema_modified: schema_modified
+  """
+  reindex: String
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_schema"
+"""
+type dipdup_schema_aggregate {
+  aggregate: dipdup_schema_aggregate_fields
+  nodes: [dipdup_schema!]!
+}
+
+"""
+aggregate fields of "dipdup_schema"
+"""
+type dipdup_schema_aggregate_fields {
+  count(columns: [dipdup_schema_select_column!], distinct: Boolean): Int!
+  max: dipdup_schema_max_fields
+  min: dipdup_schema_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_schema". All fields are combined with a logical 'AND'.
+"""
+input dipdup_schema_bool_exp {
+  _and: [dipdup_schema_bool_exp!]
+  _not: dipdup_schema_bool_exp
+  _or: [dipdup_schema_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  hash: String_comparison_exp
+  name: String_comparison_exp
+  reindex: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_schema"
+"""
+enum dipdup_schema_constraint {
+  """unique or primary key constraint"""
+  dipdup_schema_pkey
+}
+
+"""
+input type for inserting data into table "dipdup_schema"
+"""
+input dipdup_schema_insert_input {
+  created_at: timestamptz
+  hash: String
+  name: String
+
+  """
+  manual: manual\nmigration: migration\nrollback: rollback\nconfig_modified: config_modified\nschema_modified: schema_modified
+  """
+  reindex: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_schema_max_fields {
+  created_at: timestamptz
+  hash: String
+  name: String
+
+  """
+  manual: manual\nmigration: migration\nrollback: rollback\nconfig_modified: config_modified\nschema_modified: schema_modified
+  """
+  reindex: String
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type dipdup_schema_min_fields {
+  created_at: timestamptz
+  hash: String
+  name: String
+
+  """
+  manual: manual\nmigration: migration\nrollback: rollback\nconfig_modified: config_modified\nschema_modified: schema_modified
+  """
+  reindex: String
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_schema"
+"""
+type dipdup_schema_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_schema!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_schema"
+"""
+input dipdup_schema_on_conflict {
+  constraint: dipdup_schema_constraint!
+  update_columns: [dipdup_schema_update_column!]! = []
+  where: dipdup_schema_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_schema"."""
+input dipdup_schema_order_by {
+  created_at: order_by
+  hash: order_by
+  name: order_by
+  reindex: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_schema"""
+input dipdup_schema_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "dipdup_schema"
+"""
+enum dipdup_schema_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  name
+
+  """column name"""
+  reindex
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_schema"
+"""
+input dipdup_schema_set_input {
+  created_at: timestamptz
+  hash: String
+  name: String
+
+  """
+  manual: manual\nmigration: migration\nrollback: rollback\nconfig_modified: config_modified\nschema_modified: schema_modified
+  """
+  reindex: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "dipdup_schema"
+"""
+enum dipdup_schema_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  hash
+
+  """column name"""
+  name
+
+  """column name"""
+  reindex
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "dipdup_token_metadata"
+"""
+type dipdup_token_metadata {
+  contract: String!
+  created_at: timestamptz!
+  id: Int!
+  metadata(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  network: String!
+  token_id: String!
+  update_id: Int!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "dipdup_token_metadata"
+"""
+type dipdup_token_metadata_aggregate {
+  aggregate: dipdup_token_metadata_aggregate_fields
+  nodes: [dipdup_token_metadata!]!
+}
+
+"""
+aggregate fields of "dipdup_token_metadata"
+"""
+type dipdup_token_metadata_aggregate_fields {
+  avg: dipdup_token_metadata_avg_fields
+  count(columns: [dipdup_token_metadata_select_column!], distinct: Boolean): Int!
+  max: dipdup_token_metadata_max_fields
+  min: dipdup_token_metadata_min_fields
+  stddev: dipdup_token_metadata_stddev_fields
+  stddev_pop: dipdup_token_metadata_stddev_pop_fields
+  stddev_samp: dipdup_token_metadata_stddev_samp_fields
+  sum: dipdup_token_metadata_sum_fields
+  var_pop: dipdup_token_metadata_var_pop_fields
+  var_samp: dipdup_token_metadata_var_samp_fields
+  variance: dipdup_token_metadata_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_token_metadata_append_input {
+  metadata: jsonb
+}
+
+"""aggregate avg on columns"""
+type dipdup_token_metadata_avg_fields {
+  id: Float
+  update_id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "dipdup_token_metadata". All fields are combined with a logical 'AND'.
+"""
+input dipdup_token_metadata_bool_exp {
+  _and: [dipdup_token_metadata_bool_exp!]
+  _not: dipdup_token_metadata_bool_exp
+  _or: [dipdup_token_metadata_bool_exp!]
+  contract: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  metadata: jsonb_comparison_exp
+  network: String_comparison_exp
+  token_id: String_comparison_exp
+  update_id: Int_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dipdup_token_metadata"
+"""
+enum dipdup_token_metadata_constraint {
+  """unique or primary key constraint"""
+  dipdup_token_metadata_pkey
+
+  """unique or primary key constraint"""
+  uid_dipdup_toke_network_5d1a25
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input dipdup_token_metadata_delete_at_path_input {
+  metadata: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input dipdup_token_metadata_delete_elem_input {
+  metadata: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input dipdup_token_metadata_delete_key_input {
+  metadata: String
+}
+
+"""
+input type for incrementing numeric columns in table "dipdup_token_metadata"
+"""
+input dipdup_token_metadata_inc_input {
+  id: Int
+  update_id: Int
+}
+
+"""
+input type for inserting data into table "dipdup_token_metadata"
+"""
+input dipdup_token_metadata_insert_input {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  metadata: jsonb
+  network: String
+  token_id: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type dipdup_token_metadata_max_fields {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  network: String
+  token_id: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type dipdup_token_metadata_min_fields {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  network: String
+  token_id: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "dipdup_token_metadata"
+"""
+type dipdup_token_metadata_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dipdup_token_metadata!]!
+}
+
+"""
+on_conflict condition type for table "dipdup_token_metadata"
+"""
+input dipdup_token_metadata_on_conflict {
+  constraint: dipdup_token_metadata_constraint!
+  update_columns: [dipdup_token_metadata_update_column!]! = []
+  where: dipdup_token_metadata_bool_exp
+}
+
+"""Ordering options when selecting data from "dipdup_token_metadata"."""
+input dipdup_token_metadata_order_by {
+  contract: order_by
+  created_at: order_by
+  id: order_by
+  metadata: order_by
+  network: order_by
+  token_id: order_by
+  update_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: dipdup_token_metadata"""
+input dipdup_token_metadata_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input dipdup_token_metadata_prepend_input {
+  metadata: jsonb
+}
+
+"""
+select columns of table "dipdup_token_metadata"
+"""
+enum dipdup_token_metadata_select_column {
+  """column name"""
+  contract
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  network
+
+  """column name"""
+  token_id
+
+  """column name"""
+  update_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "dipdup_token_metadata"
+"""
+input dipdup_token_metadata_set_input {
+  contract: String
+  created_at: timestamptz
+  id: Int
+  metadata: jsonb
+  network: String
+  token_id: String
+  update_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type dipdup_token_metadata_stddev_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type dipdup_token_metadata_stddev_pop_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type dipdup_token_metadata_stddev_samp_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate sum on columns"""
+type dipdup_token_metadata_sum_fields {
+  id: Int
+  update_id: Int
+}
+
+"""
+update columns of table "dipdup_token_metadata"
+"""
+enum dipdup_token_metadata_update_column {
+  """column name"""
+  contract
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  metadata
+
+  """column name"""
+  network
+
+  """column name"""
+  token_id
+
+  """column name"""
+  update_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type dipdup_token_metadata_var_pop_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate var_samp on columns"""
+type dipdup_token_metadata_var_samp_fields {
+  id: Float
+  update_id: Float
+}
+
+"""aggregate variance on columns"""
+type dipdup_token_metadata_variance_fields {
+  id: Float
+  update_id: Float
+}
+
+"""
+columns and relationships of "ipfs"
+"""
+type ipfs {
+  creator: String!
+  description: String!
+  id: Int!
+  image: String!
+  name: String!
+  symbol: String!
+  thumbnail: String!
+
+  """An array relationship"""
+  token(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): [token!]!
+
+  """An aggregate relationship"""
+  token_aggregate(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): token_aggregate!
+  uri: String!
+}
+
+"""
+aggregated selection of "ipfs"
+"""
+type ipfs_aggregate {
+  aggregate: ipfs_aggregate_fields
+  nodes: [ipfs!]!
+}
+
+"""
+aggregate fields of "ipfs"
+"""
+type ipfs_aggregate_fields {
+  avg: ipfs_avg_fields
+  count(columns: [ipfs_select_column!], distinct: Boolean): Int!
+  max: ipfs_max_fields
+  min: ipfs_min_fields
+  stddev: ipfs_stddev_fields
+  stddev_pop: ipfs_stddev_pop_fields
+  stddev_samp: ipfs_stddev_samp_fields
+  sum: ipfs_sum_fields
+  var_pop: ipfs_var_pop_fields
+  var_samp: ipfs_var_samp_fields
+  variance: ipfs_variance_fields
+}
+
+"""aggregate avg on columns"""
+type ipfs_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "ipfs". All fields are combined with a logical 'AND'.
+"""
+input ipfs_bool_exp {
+  _and: [ipfs_bool_exp!]
+  _not: ipfs_bool_exp
+  _or: [ipfs_bool_exp!]
+  creator: String_comparison_exp
+  description: String_comparison_exp
+  id: Int_comparison_exp
+  image: String_comparison_exp
+  name: String_comparison_exp
+  symbol: String_comparison_exp
+  thumbnail: String_comparison_exp
+  token: token_bool_exp
+  uri: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "ipfs"
+"""
+enum ipfs_constraint {
+  """unique or primary key constraint"""
+  ipfs_pkey
+
+  """unique or primary key constraint"""
+  ipfs_uri_key
+}
+
+"""
+input type for incrementing numeric columns in table "ipfs"
+"""
+input ipfs_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "ipfs"
+"""
+input ipfs_insert_input {
+  creator: String
+  description: String
+  id: Int
+  image: String
+  name: String
+  symbol: String
+  thumbnail: String
+  token: token_arr_rel_insert_input
+  uri: String
+}
+
+"""aggregate max on columns"""
+type ipfs_max_fields {
+  creator: String
+  description: String
+  id: Int
+  image: String
+  name: String
+  symbol: String
+  thumbnail: String
+  uri: String
+}
+
+"""aggregate min on columns"""
+type ipfs_min_fields {
+  creator: String
+  description: String
+  id: Int
+  image: String
+  name: String
+  symbol: String
+  thumbnail: String
+  uri: String
+}
+
+"""
+response of any mutation on the table "ipfs"
+"""
+type ipfs_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ipfs!]!
+}
+
+"""
+input type for inserting object relation for remote table "ipfs"
+"""
+input ipfs_obj_rel_insert_input {
+  data: ipfs_insert_input!
+
+  """upsert condition"""
+  on_conflict: ipfs_on_conflict
+}
+
+"""
+on_conflict condition type for table "ipfs"
+"""
+input ipfs_on_conflict {
+  constraint: ipfs_constraint!
+  update_columns: [ipfs_update_column!]! = []
+  where: ipfs_bool_exp
+}
+
+"""Ordering options when selecting data from "ipfs"."""
+input ipfs_order_by {
+  creator: order_by
+  description: order_by
+  id: order_by
+  image: order_by
+  name: order_by
+  symbol: order_by
+  thumbnail: order_by
+  token_aggregate: token_aggregate_order_by
+  uri: order_by
+}
+
+"""primary key columns input for table: ipfs"""
+input ipfs_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "ipfs"
+"""
+enum ipfs_select_column {
+  """column name"""
+  creator
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  image
+
+  """column name"""
+  name
+
+  """column name"""
+  symbol
+
+  """column name"""
+  thumbnail
+
+  """column name"""
+  uri
+}
+
+"""
+input type for updating data in table "ipfs"
+"""
+input ipfs_set_input {
+  creator: String
+  description: String
+  id: Int
+  image: String
+  name: String
+  symbol: String
+  thumbnail: String
+  uri: String
+}
+
+"""aggregate stddev on columns"""
+type ipfs_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type ipfs_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type ipfs_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type ipfs_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "ipfs"
+"""
+enum ipfs_update_column {
+  """column name"""
+  creator
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  image
+
+  """column name"""
+  name
+
+  """column name"""
+  symbol
+
+  """column name"""
+  thumbnail
+
+  """column name"""
+  uri
+}
+
+"""aggregate var_pop on columns"""
+type ipfs_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type ipfs_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type ipfs_variance_fields {
+  id: Float
+}
+
+scalar jsonb
+
+input jsonb_cast_exp {
+  String: String_comparison_exp
+}
+
+"""
+Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'.
+"""
+input jsonb_comparison_exp {
+  _cast: jsonb_cast_exp
+
+  """is the column contained in the given json value"""
+  _contained_in: jsonb
+
+  """does the column contain the given json value at the top level"""
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  """does the string exist as a top-level key in the column"""
+  _has_key: String
+
+  """do all of these strings exist as top-level keys in the column"""
+  _has_keys_all: [String!]
+
+  """do any of these strings exist as top-level keys in the column"""
+  _has_keys_any: [String!]
+  _in: [jsonb!]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb!]
+}
+
+"""
+columns and relationships of "listing"
+"""
+type listing {
+  accepted: Boolean!
+  amount: Int!
+  cancelled: Boolean!
+  created_at: timestamptz!
+  creator: String!
+  duration: Int!
+  id: Int!
+  interest: Int!
+
+  """An array relationship"""
+  offers(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): [offer!]!
+
+  """An aggregate relationship"""
+  offers_aggregate(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): offer_aggregate!
+
+  """An object relationship"""
+  token: token!
+  token_id: Int!
+}
+
+"""
+aggregated selection of "listing"
+"""
+type listing_aggregate {
+  aggregate: listing_aggregate_fields
+  nodes: [listing!]!
+}
+
+"""
+aggregate fields of "listing"
+"""
+type listing_aggregate_fields {
+  avg: listing_avg_fields
+  count(columns: [listing_select_column!], distinct: Boolean): Int!
+  max: listing_max_fields
+  min: listing_min_fields
+  stddev: listing_stddev_fields
+  stddev_pop: listing_stddev_pop_fields
+  stddev_samp: listing_stddev_samp_fields
+  sum: listing_sum_fields
+  var_pop: listing_var_pop_fields
+  var_samp: listing_var_samp_fields
+  variance: listing_variance_fields
+}
+
+"""
+order by aggregate values of table "listing"
+"""
+input listing_aggregate_order_by {
+  avg: listing_avg_order_by
+  count: order_by
+  max: listing_max_order_by
+  min: listing_min_order_by
+  stddev: listing_stddev_order_by
+  stddev_pop: listing_stddev_pop_order_by
+  stddev_samp: listing_stddev_samp_order_by
+  sum: listing_sum_order_by
+  var_pop: listing_var_pop_order_by
+  var_samp: listing_var_samp_order_by
+  variance: listing_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "listing"
+"""
+input listing_arr_rel_insert_input {
+  data: [listing_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: listing_on_conflict
+}
+
+"""aggregate avg on columns"""
+type listing_avg_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by avg() on columns of table "listing"
+"""
+input listing_avg_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "listing". All fields are combined with a logical 'AND'.
+"""
+input listing_bool_exp {
+  _and: [listing_bool_exp!]
+  _not: listing_bool_exp
+  _or: [listing_bool_exp!]
+  accepted: Boolean_comparison_exp
+  amount: Int_comparison_exp
+  cancelled: Boolean_comparison_exp
+  created_at: timestamptz_comparison_exp
+  creator: String_comparison_exp
+  duration: Int_comparison_exp
+  id: Int_comparison_exp
+  interest: Int_comparison_exp
+  offers: offer_bool_exp
+  token: token_bool_exp
+  token_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "listing"
+"""
+enum listing_constraint {
+  """unique or primary key constraint"""
+  listing_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "listing"
+"""
+input listing_inc_input {
+  amount: Int
+  duration: Int
+  id: Int
+  interest: Int
+  token_id: Int
+}
+
+"""
+input type for inserting data into table "listing"
+"""
+input listing_insert_input {
+  accepted: Boolean
+  amount: Int
+  cancelled: Boolean
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  offers: offer_arr_rel_insert_input
+  token: token_obj_rel_insert_input
+  token_id: Int
+}
+
+"""aggregate max on columns"""
+type listing_max_fields {
+  amount: Int
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  token_id: Int
+}
+
+"""
+order by max() on columns of table "listing"
+"""
+input listing_max_order_by {
+  amount: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate min on columns"""
+type listing_min_fields {
+  amount: Int
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  token_id: Int
+}
+
+"""
+order by min() on columns of table "listing"
+"""
+input listing_min_order_by {
+  amount: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""
+response of any mutation on the table "listing"
+"""
+type listing_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [listing!]!
+}
+
+"""
+input type for inserting object relation for remote table "listing"
+"""
+input listing_obj_rel_insert_input {
+  data: listing_insert_input!
+
+  """upsert condition"""
+  on_conflict: listing_on_conflict
+}
+
+"""
+on_conflict condition type for table "listing"
+"""
+input listing_on_conflict {
+  constraint: listing_constraint!
+  update_columns: [listing_update_column!]! = []
+  where: listing_bool_exp
+}
+
+"""Ordering options when selecting data from "listing"."""
+input listing_order_by {
+  accepted: order_by
+  amount: order_by
+  cancelled: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  offers_aggregate: offer_aggregate_order_by
+  token: token_order_by
+  token_id: order_by
+}
+
+"""primary key columns input for table: listing"""
+input listing_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "listing"
+"""
+enum listing_select_column {
+  """column name"""
+  accepted
+
+  """column name"""
+  amount
+
+  """column name"""
+  cancelled
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator
+
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  token_id
+}
+
+"""
+input type for updating data in table "listing"
+"""
+input listing_set_input {
+  accepted: Boolean
+  amount: Int
+  cancelled: Boolean
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  token_id: Int
+}
+
+"""aggregate stddev on columns"""
+type listing_stddev_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by stddev() on columns of table "listing"
+"""
+input listing_stddev_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type listing_stddev_pop_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "listing"
+"""
+input listing_stddev_pop_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type listing_stddev_samp_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "listing"
+"""
+input listing_stddev_samp_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate sum on columns"""
+type listing_sum_fields {
+  amount: Int
+  duration: Int
+  id: Int
+  interest: Int
+  token_id: Int
+}
+
+"""
+order by sum() on columns of table "listing"
+"""
+input listing_sum_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""
+update columns of table "listing"
+"""
+enum listing_update_column {
+  """column name"""
+  accepted
+
+  """column name"""
+  amount
+
+  """column name"""
+  cancelled
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator
+
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  token_id
+}
+
+"""aggregate var_pop on columns"""
+type listing_var_pop_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by var_pop() on columns of table "listing"
+"""
+input listing_var_pop_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type listing_var_samp_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by var_samp() on columns of table "listing"
+"""
+input listing_var_samp_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""aggregate variance on columns"""
+type listing_variance_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  token_id: Float
+}
+
+"""
+order by variance() on columns of table "listing"
+"""
+input listing_variance_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  token_id: order_by
+}
+
+"""
+columns and relationships of "loan"
+"""
+type loan {
+  duration: Int!
+  id: Int!
+  interest: Int!
+  lender: String!
+  loanee: String!
+  principal_amount: Int!
+  repaid: Boolean
+  start_time: timestamptz!
+
+  """An object relationship"""
+  token: token!
+  token_id: Int!
+}
+
+"""
+aggregated selection of "loan"
+"""
+type loan_aggregate {
+  aggregate: loan_aggregate_fields
+  nodes: [loan!]!
+}
+
+"""
+aggregate fields of "loan"
+"""
+type loan_aggregate_fields {
+  avg: loan_avg_fields
+  count(columns: [loan_select_column!], distinct: Boolean): Int!
+  max: loan_max_fields
+  min: loan_min_fields
+  stddev: loan_stddev_fields
+  stddev_pop: loan_stddev_pop_fields
+  stddev_samp: loan_stddev_samp_fields
+  sum: loan_sum_fields
+  var_pop: loan_var_pop_fields
+  var_samp: loan_var_samp_fields
+  variance: loan_variance_fields
+}
+
+"""
+order by aggregate values of table "loan"
+"""
+input loan_aggregate_order_by {
+  avg: loan_avg_order_by
+  count: order_by
+  max: loan_max_order_by
+  min: loan_min_order_by
+  stddev: loan_stddev_order_by
+  stddev_pop: loan_stddev_pop_order_by
+  stddev_samp: loan_stddev_samp_order_by
+  sum: loan_sum_order_by
+  var_pop: loan_var_pop_order_by
+  var_samp: loan_var_samp_order_by
+  variance: loan_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "loan"
+"""
+input loan_arr_rel_insert_input {
+  data: [loan_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: loan_on_conflict
+}
+
+"""aggregate avg on columns"""
+type loan_avg_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by avg() on columns of table "loan"
+"""
+input loan_avg_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "loan". All fields are combined with a logical 'AND'.
+"""
+input loan_bool_exp {
+  _and: [loan_bool_exp!]
+  _not: loan_bool_exp
+  _or: [loan_bool_exp!]
+  duration: Int_comparison_exp
+  id: Int_comparison_exp
+  interest: Int_comparison_exp
+  lender: String_comparison_exp
+  loanee: String_comparison_exp
+  principal_amount: Int_comparison_exp
+  repaid: Boolean_comparison_exp
+  start_time: timestamptz_comparison_exp
+  token: token_bool_exp
+  token_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "loan"
+"""
+enum loan_constraint {
+  """unique or primary key constraint"""
+  loan_pkey
+
+  """unique or primary key constraint"""
+  loan_token_id_key
+}
+
+"""
+input type for incrementing numeric columns in table "loan"
+"""
+input loan_inc_input {
+  duration: Int
+  id: Int
+  interest: Int
+  principal_amount: Int
+  token_id: Int
+}
+
+"""
+input type for inserting data into table "loan"
+"""
+input loan_insert_input {
+  duration: Int
+  id: Int
+  interest: Int
+  lender: String
+  loanee: String
+  principal_amount: Int
+  repaid: Boolean
+  start_time: timestamptz
+  token: token_obj_rel_insert_input
+  token_id: Int
+}
+
+"""aggregate max on columns"""
+type loan_max_fields {
+  duration: Int
+  id: Int
+  interest: Int
+  lender: String
+  loanee: String
+  principal_amount: Int
+  start_time: timestamptz
+  token_id: Int
+}
+
+"""
+order by max() on columns of table "loan"
+"""
+input loan_max_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  lender: order_by
+  loanee: order_by
+  principal_amount: order_by
+  start_time: order_by
+  token_id: order_by
+}
+
+"""aggregate min on columns"""
+type loan_min_fields {
+  duration: Int
+  id: Int
+  interest: Int
+  lender: String
+  loanee: String
+  principal_amount: Int
+  start_time: timestamptz
+  token_id: Int
+}
+
+"""
+order by min() on columns of table "loan"
+"""
+input loan_min_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  lender: order_by
+  loanee: order_by
+  principal_amount: order_by
+  start_time: order_by
+  token_id: order_by
+}
+
+"""
+response of any mutation on the table "loan"
+"""
+type loan_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [loan!]!
+}
+
+"""
+on_conflict condition type for table "loan"
+"""
+input loan_on_conflict {
+  constraint: loan_constraint!
+  update_columns: [loan_update_column!]! = []
+  where: loan_bool_exp
+}
+
+"""Ordering options when selecting data from "loan"."""
+input loan_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  lender: order_by
+  loanee: order_by
+  principal_amount: order_by
+  repaid: order_by
+  start_time: order_by
+  token: token_order_by
+  token_id: order_by
+}
+
+"""primary key columns input for table: loan"""
+input loan_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "loan"
+"""
+enum loan_select_column {
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  lender
+
+  """column name"""
+  loanee
+
+  """column name"""
+  principal_amount
+
+  """column name"""
+  repaid
+
+  """column name"""
+  start_time
+
+  """column name"""
+  token_id
+}
+
+"""
+input type for updating data in table "loan"
+"""
+input loan_set_input {
+  duration: Int
+  id: Int
+  interest: Int
+  lender: String
+  loanee: String
+  principal_amount: Int
+  repaid: Boolean
+  start_time: timestamptz
+  token_id: Int
+}
+
+"""aggregate stddev on columns"""
+type loan_stddev_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by stddev() on columns of table "loan"
+"""
+input loan_stddev_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type loan_stddev_pop_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "loan"
+"""
+input loan_stddev_pop_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type loan_stddev_samp_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "loan"
+"""
+input loan_stddev_samp_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""aggregate sum on columns"""
+type loan_sum_fields {
+  duration: Int
+  id: Int
+  interest: Int
+  principal_amount: Int
+  token_id: Int
+}
+
+"""
+order by sum() on columns of table "loan"
+"""
+input loan_sum_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""
+update columns of table "loan"
+"""
+enum loan_update_column {
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  lender
+
+  """column name"""
+  loanee
+
+  """column name"""
+  principal_amount
+
+  """column name"""
+  repaid
+
+  """column name"""
+  start_time
+
+  """column name"""
+  token_id
+}
+
+"""aggregate var_pop on columns"""
+type loan_var_pop_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by var_pop() on columns of table "loan"
+"""
+input loan_var_pop_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type loan_var_samp_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by var_samp() on columns of table "loan"
+"""
+input loan_var_samp_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""aggregate variance on columns"""
+type loan_variance_fields {
+  duration: Float
+  id: Float
+  interest: Float
+  principal_amount: Float
+  token_id: Float
+}
+
+"""
+order by variance() on columns of table "loan"
+"""
+input loan_variance_order_by {
+  duration: order_by
+  id: order_by
+  interest: order_by
+  principal_amount: order_by
+  token_id: order_by
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "dipdup_contract"
+  """
+  delete_dipdup_contract(
+    """filter the rows which have to be deleted"""
+    where: dipdup_contract_bool_exp!
+  ): dipdup_contract_mutation_response
+
+  """
+  delete single row from the table: "dipdup_contract"
+  """
+  delete_dipdup_contract_by_pk(name: String!): dipdup_contract
+
+  """
+  delete data from the table: "dipdup_contract_metadata"
+  """
+  delete_dipdup_contract_metadata(
+    """filter the rows which have to be deleted"""
+    where: dipdup_contract_metadata_bool_exp!
+  ): dipdup_contract_metadata_mutation_response
+
+  """
+  delete single row from the table: "dipdup_contract_metadata"
+  """
+  delete_dipdup_contract_metadata_by_pk(id: Int!): dipdup_contract_metadata
+
+  """
+  delete data from the table: "dipdup_head"
+  """
+  delete_dipdup_head(
+    """filter the rows which have to be deleted"""
+    where: dipdup_head_bool_exp!
+  ): dipdup_head_mutation_response
+
+  """
+  delete single row from the table: "dipdup_head"
+  """
+  delete_dipdup_head_by_pk(name: String!): dipdup_head
+
+  """
+  delete data from the table: "dipdup_head_status"
+  """
+  delete_dipdup_head_status(
+    """filter the rows which have to be deleted"""
+    where: dipdup_head_status_bool_exp!
+  ): dipdup_head_status_mutation_response
+
+  """
+  delete data from the table: "dipdup_index"
+  """
+  delete_dipdup_index(
+    """filter the rows which have to be deleted"""
+    where: dipdup_index_bool_exp!
+  ): dipdup_index_mutation_response
+
+  """
+  delete single row from the table: "dipdup_index"
+  """
+  delete_dipdup_index_by_pk(name: String!): dipdup_index
+
+  """
+  delete data from the table: "dipdup_schema"
+  """
+  delete_dipdup_schema(
+    """filter the rows which have to be deleted"""
+    where: dipdup_schema_bool_exp!
+  ): dipdup_schema_mutation_response
+
+  """
+  delete single row from the table: "dipdup_schema"
+  """
+  delete_dipdup_schema_by_pk(name: String!): dipdup_schema
+
+  """
+  delete data from the table: "dipdup_token_metadata"
+  """
+  delete_dipdup_token_metadata(
+    """filter the rows which have to be deleted"""
+    where: dipdup_token_metadata_bool_exp!
+  ): dipdup_token_metadata_mutation_response
+
+  """
+  delete single row from the table: "dipdup_token_metadata"
+  """
+  delete_dipdup_token_metadata_by_pk(id: Int!): dipdup_token_metadata
+
+  """
+  delete data from the table: "ipfs"
+  """
+  delete_ipfs(
+    """filter the rows which have to be deleted"""
+    where: ipfs_bool_exp!
+  ): ipfs_mutation_response
+
+  """
+  delete single row from the table: "ipfs"
+  """
+  delete_ipfs_by_pk(id: Int!): ipfs
+
+  """
+  delete data from the table: "listing"
+  """
+  delete_listing(
+    """filter the rows which have to be deleted"""
+    where: listing_bool_exp!
+  ): listing_mutation_response
+
+  """
+  delete single row from the table: "listing"
+  """
+  delete_listing_by_pk(id: Int!): listing
+
+  """
+  delete data from the table: "loan"
+  """
+  delete_loan(
+    """filter the rows which have to be deleted"""
+    where: loan_bool_exp!
+  ): loan_mutation_response
+
+  """
+  delete single row from the table: "loan"
+  """
+  delete_loan_by_pk(id: Int!): loan
+
+  """
+  delete data from the table: "offer"
+  """
+  delete_offer(
+    """filter the rows which have to be deleted"""
+    where: offer_bool_exp!
+  ): offer_mutation_response
+
+  """
+  delete single row from the table: "offer"
+  """
+  delete_offer_by_pk(id: Int!): offer
+
+  """
+  delete data from the table: "token"
+  """
+  delete_token(
+    """filter the rows which have to be deleted"""
+    where: token_bool_exp!
+  ): token_mutation_response
+
+  """
+  delete single row from the table: "token"
+  """
+  delete_token_by_pk(id: Int!): token
+
+  """
+  insert data into the table: "dipdup_contract"
+  """
+  insert_dipdup_contract(
+    """the rows to be inserted"""
+    objects: [dipdup_contract_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_contract_on_conflict
+  ): dipdup_contract_mutation_response
+
+  """
+  insert data into the table: "dipdup_contract_metadata"
+  """
+  insert_dipdup_contract_metadata(
+    """the rows to be inserted"""
+    objects: [dipdup_contract_metadata_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_contract_metadata_on_conflict
+  ): dipdup_contract_metadata_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_contract_metadata"
+  """
+  insert_dipdup_contract_metadata_one(
+    """the row to be inserted"""
+    object: dipdup_contract_metadata_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_contract_metadata_on_conflict
+  ): dipdup_contract_metadata
+
+  """
+  insert a single row into the table: "dipdup_contract"
+  """
+  insert_dipdup_contract_one(
+    """the row to be inserted"""
+    object: dipdup_contract_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_contract_on_conflict
+  ): dipdup_contract
+
+  """
+  insert data into the table: "dipdup_head"
+  """
+  insert_dipdup_head(
+    """the rows to be inserted"""
+    objects: [dipdup_head_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_head_on_conflict
+  ): dipdup_head_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_head"
+  """
+  insert_dipdup_head_one(
+    """the row to be inserted"""
+    object: dipdup_head_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_head_on_conflict
+  ): dipdup_head
+
+  """
+  insert data into the table: "dipdup_head_status"
+  """
+  insert_dipdup_head_status(
+    """the rows to be inserted"""
+    objects: [dipdup_head_status_insert_input!]!
+  ): dipdup_head_status_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_head_status"
+  """
+  insert_dipdup_head_status_one(
+    """the row to be inserted"""
+    object: dipdup_head_status_insert_input!
+  ): dipdup_head_status
+
+  """
+  insert data into the table: "dipdup_index"
+  """
+  insert_dipdup_index(
+    """the rows to be inserted"""
+    objects: [dipdup_index_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_index_on_conflict
+  ): dipdup_index_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_index"
+  """
+  insert_dipdup_index_one(
+    """the row to be inserted"""
+    object: dipdup_index_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_index_on_conflict
+  ): dipdup_index
+
+  """
+  insert data into the table: "dipdup_schema"
+  """
+  insert_dipdup_schema(
+    """the rows to be inserted"""
+    objects: [dipdup_schema_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_schema_on_conflict
+  ): dipdup_schema_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_schema"
+  """
+  insert_dipdup_schema_one(
+    """the row to be inserted"""
+    object: dipdup_schema_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_schema_on_conflict
+  ): dipdup_schema
+
+  """
+  insert data into the table: "dipdup_token_metadata"
+  """
+  insert_dipdup_token_metadata(
+    """the rows to be inserted"""
+    objects: [dipdup_token_metadata_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dipdup_token_metadata_on_conflict
+  ): dipdup_token_metadata_mutation_response
+
+  """
+  insert a single row into the table: "dipdup_token_metadata"
+  """
+  insert_dipdup_token_metadata_one(
+    """the row to be inserted"""
+    object: dipdup_token_metadata_insert_input!
+
+    """upsert condition"""
+    on_conflict: dipdup_token_metadata_on_conflict
+  ): dipdup_token_metadata
+
+  """
+  insert data into the table: "ipfs"
+  """
+  insert_ipfs(
+    """the rows to be inserted"""
+    objects: [ipfs_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: ipfs_on_conflict
+  ): ipfs_mutation_response
+
+  """
+  insert a single row into the table: "ipfs"
+  """
+  insert_ipfs_one(
+    """the row to be inserted"""
+    object: ipfs_insert_input!
+
+    """upsert condition"""
+    on_conflict: ipfs_on_conflict
+  ): ipfs
+
+  """
+  insert data into the table: "listing"
+  """
+  insert_listing(
+    """the rows to be inserted"""
+    objects: [listing_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: listing_on_conflict
+  ): listing_mutation_response
+
+  """
+  insert a single row into the table: "listing"
+  """
+  insert_listing_one(
+    """the row to be inserted"""
+    object: listing_insert_input!
+
+    """upsert condition"""
+    on_conflict: listing_on_conflict
+  ): listing
+
+  """
+  insert data into the table: "loan"
+  """
+  insert_loan(
+    """the rows to be inserted"""
+    objects: [loan_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: loan_on_conflict
+  ): loan_mutation_response
+
+  """
+  insert a single row into the table: "loan"
+  """
+  insert_loan_one(
+    """the row to be inserted"""
+    object: loan_insert_input!
+
+    """upsert condition"""
+    on_conflict: loan_on_conflict
+  ): loan
+
+  """
+  insert data into the table: "offer"
+  """
+  insert_offer(
+    """the rows to be inserted"""
+    objects: [offer_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: offer_on_conflict
+  ): offer_mutation_response
+
+  """
+  insert a single row into the table: "offer"
+  """
+  insert_offer_one(
+    """the row to be inserted"""
+    object: offer_insert_input!
+
+    """upsert condition"""
+    on_conflict: offer_on_conflict
+  ): offer
+
+  """
+  insert data into the table: "token"
+  """
+  insert_token(
+    """the rows to be inserted"""
+    objects: [token_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: token_on_conflict
+  ): token_mutation_response
+
+  """
+  insert a single row into the table: "token"
+  """
+  insert_token_one(
+    """the row to be inserted"""
+    object: token_insert_input!
+
+    """upsert condition"""
+    on_conflict: token_on_conflict
+  ): token
+
+  """
+  update data of the table: "dipdup_contract"
+  """
+  update_dipdup_contract(
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_contract_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_contract_bool_exp!
+  ): dipdup_contract_mutation_response
+
+  """
+  update single row of the table: "dipdup_contract"
+  """
+  update_dipdup_contract_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_contract_set_input
+    pk_columns: dipdup_contract_pk_columns_input!
+  ): dipdup_contract
+
+  """
+  update data of the table: "dipdup_contract_metadata"
+  """
+  update_dipdup_contract_metadata(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_contract_metadata_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_contract_metadata_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_contract_metadata_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_contract_metadata_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_contract_metadata_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_contract_metadata_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_contract_metadata_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_contract_metadata_bool_exp!
+  ): dipdup_contract_metadata_mutation_response
+
+  """
+  update single row of the table: "dipdup_contract_metadata"
+  """
+  update_dipdup_contract_metadata_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_contract_metadata_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_contract_metadata_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_contract_metadata_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_contract_metadata_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_contract_metadata_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_contract_metadata_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_contract_metadata_set_input
+    pk_columns: dipdup_contract_metadata_pk_columns_input!
+  ): dipdup_contract_metadata
+
+  """
+  update data of the table: "dipdup_head"
+  """
+  update_dipdup_head(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_head_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_head_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_head_bool_exp!
+  ): dipdup_head_mutation_response
+
+  """
+  update single row of the table: "dipdup_head"
+  """
+  update_dipdup_head_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_head_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_head_set_input
+    pk_columns: dipdup_head_pk_columns_input!
+  ): dipdup_head
+
+  """
+  update data of the table: "dipdup_head_status"
+  """
+  update_dipdup_head_status(
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_head_status_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_head_status_bool_exp!
+  ): dipdup_head_status_mutation_response
+
+  """
+  update data of the table: "dipdup_index"
+  """
+  update_dipdup_index(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_index_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_index_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_index_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_index_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_index_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_index_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_index_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_index_bool_exp!
+  ): dipdup_index_mutation_response
+
+  """
+  update single row of the table: "dipdup_index"
+  """
+  update_dipdup_index_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_index_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_index_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_index_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_index_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_index_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_index_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_index_set_input
+    pk_columns: dipdup_index_pk_columns_input!
+  ): dipdup_index
+
+  """
+  update data of the table: "dipdup_schema"
+  """
+  update_dipdup_schema(
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_schema_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_schema_bool_exp!
+  ): dipdup_schema_mutation_response
+
+  """
+  update single row of the table: "dipdup_schema"
+  """
+  update_dipdup_schema_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_schema_set_input
+    pk_columns: dipdup_schema_pk_columns_input!
+  ): dipdup_schema
+
+  """
+  update data of the table: "dipdup_token_metadata"
+  """
+  update_dipdup_token_metadata(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_token_metadata_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_token_metadata_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_token_metadata_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_token_metadata_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_token_metadata_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_token_metadata_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_token_metadata_set_input
+
+    """filter the rows which have to be updated"""
+    where: dipdup_token_metadata_bool_exp!
+  ): dipdup_token_metadata_mutation_response
+
+  """
+  update single row of the table: "dipdup_token_metadata"
+  """
+  update_dipdup_token_metadata_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dipdup_token_metadata_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dipdup_token_metadata_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dipdup_token_metadata_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dipdup_token_metadata_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dipdup_token_metadata_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dipdup_token_metadata_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dipdup_token_metadata_set_input
+    pk_columns: dipdup_token_metadata_pk_columns_input!
+  ): dipdup_token_metadata
+
+  """
+  update data of the table: "ipfs"
+  """
+  update_ipfs(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ipfs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ipfs_set_input
+
+    """filter the rows which have to be updated"""
+    where: ipfs_bool_exp!
+  ): ipfs_mutation_response
+
+  """
+  update single row of the table: "ipfs"
+  """
+  update_ipfs_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ipfs_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ipfs_set_input
+    pk_columns: ipfs_pk_columns_input!
+  ): ipfs
+
+  """
+  update data of the table: "listing"
+  """
+  update_listing(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: listing_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: listing_set_input
+
+    """filter the rows which have to be updated"""
+    where: listing_bool_exp!
+  ): listing_mutation_response
+
+  """
+  update single row of the table: "listing"
+  """
+  update_listing_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: listing_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: listing_set_input
+    pk_columns: listing_pk_columns_input!
+  ): listing
+
+  """
+  update data of the table: "loan"
+  """
+  update_loan(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: loan_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: loan_set_input
+
+    """filter the rows which have to be updated"""
+    where: loan_bool_exp!
+  ): loan_mutation_response
+
+  """
+  update single row of the table: "loan"
+  """
+  update_loan_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: loan_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: loan_set_input
+    pk_columns: loan_pk_columns_input!
+  ): loan
+
+  """
+  update data of the table: "offer"
+  """
+  update_offer(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: offer_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: offer_set_input
+
+    """filter the rows which have to be updated"""
+    where: offer_bool_exp!
+  ): offer_mutation_response
+
+  """
+  update single row of the table: "offer"
+  """
+  update_offer_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: offer_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: offer_set_input
+    pk_columns: offer_pk_columns_input!
+  ): offer
+
+  """
+  update data of the table: "token"
+  """
+  update_token(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: token_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: token_set_input
+
+    """filter the rows which have to be updated"""
+    where: token_bool_exp!
+  ): token_mutation_response
+
+  """
+  update single row of the table: "token"
+  """
+  update_token_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: token_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: token_set_input
+    pk_columns: token_pk_columns_input!
+  ): token
+}
+
+"""
+columns and relationships of "offer"
+"""
+type offer {
+  accepted: Boolean!
+  amount: Int!
+  cancelled: Boolean!
+  created_at: timestamptz!
+  creator: String!
+  duration: Int!
+  id: Int!
+  interest: Int!
+
+  """An object relationship"""
+  listing: listing!
+  listing_id: Int!
+}
+
+"""
+aggregated selection of "offer"
+"""
+type offer_aggregate {
+  aggregate: offer_aggregate_fields
+  nodes: [offer!]!
+}
+
+"""
+aggregate fields of "offer"
+"""
+type offer_aggregate_fields {
+  avg: offer_avg_fields
+  count(columns: [offer_select_column!], distinct: Boolean): Int!
+  max: offer_max_fields
+  min: offer_min_fields
+  stddev: offer_stddev_fields
+  stddev_pop: offer_stddev_pop_fields
+  stddev_samp: offer_stddev_samp_fields
+  sum: offer_sum_fields
+  var_pop: offer_var_pop_fields
+  var_samp: offer_var_samp_fields
+  variance: offer_variance_fields
+}
+
+"""
+order by aggregate values of table "offer"
+"""
+input offer_aggregate_order_by {
+  avg: offer_avg_order_by
+  count: order_by
+  max: offer_max_order_by
+  min: offer_min_order_by
+  stddev: offer_stddev_order_by
+  stddev_pop: offer_stddev_pop_order_by
+  stddev_samp: offer_stddev_samp_order_by
+  sum: offer_sum_order_by
+  var_pop: offer_var_pop_order_by
+  var_samp: offer_var_samp_order_by
+  variance: offer_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "offer"
+"""
+input offer_arr_rel_insert_input {
+  data: [offer_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: offer_on_conflict
+}
+
+"""aggregate avg on columns"""
+type offer_avg_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by avg() on columns of table "offer"
+"""
+input offer_avg_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "offer". All fields are combined with a logical 'AND'.
+"""
+input offer_bool_exp {
+  _and: [offer_bool_exp!]
+  _not: offer_bool_exp
+  _or: [offer_bool_exp!]
+  accepted: Boolean_comparison_exp
+  amount: Int_comparison_exp
+  cancelled: Boolean_comparison_exp
+  created_at: timestamptz_comparison_exp
+  creator: String_comparison_exp
+  duration: Int_comparison_exp
+  id: Int_comparison_exp
+  interest: Int_comparison_exp
+  listing: listing_bool_exp
+  listing_id: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "offer"
+"""
+enum offer_constraint {
+  """unique or primary key constraint"""
+  offer_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "offer"
+"""
+input offer_inc_input {
+  amount: Int
+  duration: Int
+  id: Int
+  interest: Int
+  listing_id: Int
+}
+
+"""
+input type for inserting data into table "offer"
+"""
+input offer_insert_input {
+  accepted: Boolean
+  amount: Int
+  cancelled: Boolean
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  listing: listing_obj_rel_insert_input
+  listing_id: Int
+}
+
+"""aggregate max on columns"""
+type offer_max_fields {
+  amount: Int
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  listing_id: Int
+}
+
+"""
+order by max() on columns of table "offer"
+"""
+input offer_max_order_by {
+  amount: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate min on columns"""
+type offer_min_fields {
+  amount: Int
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  listing_id: Int
+}
+
+"""
+order by min() on columns of table "offer"
+"""
+input offer_min_order_by {
+  amount: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""
+response of any mutation on the table "offer"
+"""
+type offer_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [offer!]!
+}
+
+"""
+on_conflict condition type for table "offer"
+"""
+input offer_on_conflict {
+  constraint: offer_constraint!
+  update_columns: [offer_update_column!]! = []
+  where: offer_bool_exp
+}
+
+"""Ordering options when selecting data from "offer"."""
+input offer_order_by {
+  accepted: order_by
+  amount: order_by
+  cancelled: order_by
+  created_at: order_by
+  creator: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing: listing_order_by
+  listing_id: order_by
+}
+
+"""primary key columns input for table: offer"""
+input offer_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "offer"
+"""
+enum offer_select_column {
+  """column name"""
+  accepted
+
+  """column name"""
+  amount
+
+  """column name"""
+  cancelled
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator
+
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  listing_id
+}
+
+"""
+input type for updating data in table "offer"
+"""
+input offer_set_input {
+  accepted: Boolean
+  amount: Int
+  cancelled: Boolean
+  created_at: timestamptz
+  creator: String
+  duration: Int
+  id: Int
+  interest: Int
+  listing_id: Int
+}
+
+"""aggregate stddev on columns"""
+type offer_stddev_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by stddev() on columns of table "offer"
+"""
+input offer_stddev_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type offer_stddev_pop_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "offer"
+"""
+input offer_stddev_pop_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type offer_stddev_samp_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "offer"
+"""
+input offer_stddev_samp_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate sum on columns"""
+type offer_sum_fields {
+  amount: Int
+  duration: Int
+  id: Int
+  interest: Int
+  listing_id: Int
+}
+
+"""
+order by sum() on columns of table "offer"
+"""
+input offer_sum_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""
+update columns of table "offer"
+"""
+enum offer_update_column {
+  """column name"""
+  accepted
+
+  """column name"""
+  amount
+
+  """column name"""
+  cancelled
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator
+
+  """column name"""
+  duration
+
+  """column name"""
+  id
+
+  """column name"""
+  interest
+
+  """column name"""
+  listing_id
+}
+
+"""aggregate var_pop on columns"""
+type offer_var_pop_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by var_pop() on columns of table "offer"
+"""
+input offer_var_pop_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type offer_var_samp_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by var_samp() on columns of table "offer"
+"""
+input offer_var_samp_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""aggregate variance on columns"""
+type offer_variance_fields {
+  amount: Float
+  duration: Float
+  id: Float
+  interest: Float
+  listing_id: Float
+}
+
+"""
+order by variance() on columns of table "offer"
+"""
+input offer_variance_order_by {
+  amount: order_by
+  duration: order_by
+  id: order_by
+  interest: order_by
+  listing_id: order_by
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+type query_root {
+  """
+  fetch data from the table: "dipdup_contract"
+  """
+  dipdup_contract(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_bool_exp
+  ): [dipdup_contract!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_contract"
+  """
+  dipdup_contract_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_bool_exp
+  ): dipdup_contract_aggregate!
+
+  """fetch data from the table: "dipdup_contract" using primary key columns"""
+  dipdup_contract_by_pk(name: String!): dipdup_contract
+
+  """
+  fetch data from the table: "dipdup_contract_metadata"
+  """
+  dipdup_contract_metadata(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_metadata_bool_exp
+  ): [dipdup_contract_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_contract_metadata"
+  """
+  dipdup_contract_metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_metadata_bool_exp
+  ): dipdup_contract_metadata_aggregate!
+
+  """
+  fetch data from the table: "dipdup_contract_metadata" using primary key columns
+  """
+  dipdup_contract_metadata_by_pk(id: Int!): dipdup_contract_metadata
+
+  """
+  fetch data from the table: "dipdup_head"
+  """
+  dipdup_head(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_bool_exp
+  ): [dipdup_head!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_head"
+  """
+  dipdup_head_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_bool_exp
+  ): dipdup_head_aggregate!
+
+  """fetch data from the table: "dipdup_head" using primary key columns"""
+  dipdup_head_by_pk(name: String!): dipdup_head
+
+  """
+  fetch data from the table: "dipdup_head_status"
+  """
+  dipdup_head_status(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_status_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_status_bool_exp
+  ): [dipdup_head_status!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_head_status"
+  """
+  dipdup_head_status_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_status_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_status_bool_exp
+  ): dipdup_head_status_aggregate!
+
+  """
+  fetch data from the table: "dipdup_index"
+  """
+  dipdup_index(
+    """distinct select on columns"""
+    distinct_on: [dipdup_index_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_index_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_index_bool_exp
+  ): [dipdup_index!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_index"
+  """
+  dipdup_index_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_index_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_index_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_index_bool_exp
+  ): dipdup_index_aggregate!
+
+  """fetch data from the table: "dipdup_index" using primary key columns"""
+  dipdup_index_by_pk(name: String!): dipdup_index
+
+  """
+  fetch data from the table: "dipdup_schema"
+  """
+  dipdup_schema(
+    """distinct select on columns"""
+    distinct_on: [dipdup_schema_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_schema_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_schema_bool_exp
+  ): [dipdup_schema!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_schema"
+  """
+  dipdup_schema_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_schema_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_schema_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_schema_bool_exp
+  ): dipdup_schema_aggregate!
+
+  """fetch data from the table: "dipdup_schema" using primary key columns"""
+  dipdup_schema_by_pk(name: String!): dipdup_schema
+
+  """
+  fetch data from the table: "dipdup_token_metadata"
+  """
+  dipdup_token_metadata(
+    """distinct select on columns"""
+    distinct_on: [dipdup_token_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_token_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_token_metadata_bool_exp
+  ): [dipdup_token_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_token_metadata"
+  """
+  dipdup_token_metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_token_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_token_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_token_metadata_bool_exp
+  ): dipdup_token_metadata_aggregate!
+
+  """
+  fetch data from the table: "dipdup_token_metadata" using primary key columns
+  """
+  dipdup_token_metadata_by_pk(id: Int!): dipdup_token_metadata
+
+  """
+  fetch data from the table: "ipfs"
+  """
+  ipfs(
+    """distinct select on columns"""
+    distinct_on: [ipfs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ipfs_order_by!]
+
+    """filter the rows returned"""
+    where: ipfs_bool_exp
+  ): [ipfs!]!
+
+  """
+  fetch aggregated fields from the table: "ipfs"
+  """
+  ipfs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ipfs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ipfs_order_by!]
+
+    """filter the rows returned"""
+    where: ipfs_bool_exp
+  ): ipfs_aggregate!
+
+  """fetch data from the table: "ipfs" using primary key columns"""
+  ipfs_by_pk(id: Int!): ipfs
+
+  """An array relationship"""
+  listing(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): [listing!]!
+
+  """An aggregate relationship"""
+  listing_aggregate(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): listing_aggregate!
+
+  """fetch data from the table: "listing" using primary key columns"""
+  listing_by_pk(id: Int!): listing
+
+  """An array relationship"""
+  loan(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): [loan!]!
+
+  """An aggregate relationship"""
+  loan_aggregate(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): loan_aggregate!
+
+  """fetch data from the table: "loan" using primary key columns"""
+  loan_by_pk(id: Int!): loan
+
+  """
+  fetch data from the table: "offer"
+  """
+  offer(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): [offer!]!
+
+  """
+  fetch aggregated fields from the table: "offer"
+  """
+  offer_aggregate(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): offer_aggregate!
+
+  """fetch data from the table: "offer" using primary key columns"""
+  offer_by_pk(id: Int!): offer
+
+  """An array relationship"""
+  token(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): [token!]!
+
+  """An aggregate relationship"""
+  token_aggregate(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): token_aggregate!
+
+  """fetch data from the table: "token" using primary key columns"""
+  token_by_pk(id: Int!): token
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "dipdup_contract"
+  """
+  dipdup_contract(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_bool_exp
+  ): [dipdup_contract!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_contract"
+  """
+  dipdup_contract_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_bool_exp
+  ): dipdup_contract_aggregate!
+
+  """fetch data from the table: "dipdup_contract" using primary key columns"""
+  dipdup_contract_by_pk(name: String!): dipdup_contract
+
+  """
+  fetch data from the table: "dipdup_contract_metadata"
+  """
+  dipdup_contract_metadata(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_metadata_bool_exp
+  ): [dipdup_contract_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_contract_metadata"
+  """
+  dipdup_contract_metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_contract_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_contract_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_contract_metadata_bool_exp
+  ): dipdup_contract_metadata_aggregate!
+
+  """
+  fetch data from the table: "dipdup_contract_metadata" using primary key columns
+  """
+  dipdup_contract_metadata_by_pk(id: Int!): dipdup_contract_metadata
+
+  """
+  fetch data from the table: "dipdup_head"
+  """
+  dipdup_head(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_bool_exp
+  ): [dipdup_head!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_head"
+  """
+  dipdup_head_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_bool_exp
+  ): dipdup_head_aggregate!
+
+  """fetch data from the table: "dipdup_head" using primary key columns"""
+  dipdup_head_by_pk(name: String!): dipdup_head
+
+  """
+  fetch data from the table: "dipdup_head_status"
+  """
+  dipdup_head_status(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_status_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_status_bool_exp
+  ): [dipdup_head_status!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_head_status"
+  """
+  dipdup_head_status_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_head_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_head_status_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_head_status_bool_exp
+  ): dipdup_head_status_aggregate!
+
+  """
+  fetch data from the table: "dipdup_index"
+  """
+  dipdup_index(
+    """distinct select on columns"""
+    distinct_on: [dipdup_index_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_index_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_index_bool_exp
+  ): [dipdup_index!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_index"
+  """
+  dipdup_index_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_index_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_index_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_index_bool_exp
+  ): dipdup_index_aggregate!
+
+  """fetch data from the table: "dipdup_index" using primary key columns"""
+  dipdup_index_by_pk(name: String!): dipdup_index
+
+  """
+  fetch data from the table: "dipdup_schema"
+  """
+  dipdup_schema(
+    """distinct select on columns"""
+    distinct_on: [dipdup_schema_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_schema_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_schema_bool_exp
+  ): [dipdup_schema!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_schema"
+  """
+  dipdup_schema_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_schema_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_schema_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_schema_bool_exp
+  ): dipdup_schema_aggregate!
+
+  """fetch data from the table: "dipdup_schema" using primary key columns"""
+  dipdup_schema_by_pk(name: String!): dipdup_schema
+
+  """
+  fetch data from the table: "dipdup_token_metadata"
+  """
+  dipdup_token_metadata(
+    """distinct select on columns"""
+    distinct_on: [dipdup_token_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_token_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_token_metadata_bool_exp
+  ): [dipdup_token_metadata!]!
+
+  """
+  fetch aggregated fields from the table: "dipdup_token_metadata"
+  """
+  dipdup_token_metadata_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dipdup_token_metadata_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dipdup_token_metadata_order_by!]
+
+    """filter the rows returned"""
+    where: dipdup_token_metadata_bool_exp
+  ): dipdup_token_metadata_aggregate!
+
+  """
+  fetch data from the table: "dipdup_token_metadata" using primary key columns
+  """
+  dipdup_token_metadata_by_pk(id: Int!): dipdup_token_metadata
+
+  """
+  fetch data from the table: "ipfs"
+  """
+  ipfs(
+    """distinct select on columns"""
+    distinct_on: [ipfs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ipfs_order_by!]
+
+    """filter the rows returned"""
+    where: ipfs_bool_exp
+  ): [ipfs!]!
+
+  """
+  fetch aggregated fields from the table: "ipfs"
+  """
+  ipfs_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ipfs_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ipfs_order_by!]
+
+    """filter the rows returned"""
+    where: ipfs_bool_exp
+  ): ipfs_aggregate!
+
+  """fetch data from the table: "ipfs" using primary key columns"""
+  ipfs_by_pk(id: Int!): ipfs
+
+  """An array relationship"""
+  listing(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): [listing!]!
+
+  """An aggregate relationship"""
+  listing_aggregate(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): listing_aggregate!
+
+  """fetch data from the table: "listing" using primary key columns"""
+  listing_by_pk(id: Int!): listing
+
+  """An array relationship"""
+  loan(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): [loan!]!
+
+  """An aggregate relationship"""
+  loan_aggregate(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): loan_aggregate!
+
+  """fetch data from the table: "loan" using primary key columns"""
+  loan_by_pk(id: Int!): loan
+
+  """
+  fetch data from the table: "offer"
+  """
+  offer(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): [offer!]!
+
+  """
+  fetch aggregated fields from the table: "offer"
+  """
+  offer_aggregate(
+    """distinct select on columns"""
+    distinct_on: [offer_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [offer_order_by!]
+
+    """filter the rows returned"""
+    where: offer_bool_exp
+  ): offer_aggregate!
+
+  """fetch data from the table: "offer" using primary key columns"""
+  offer_by_pk(id: Int!): offer
+
+  """An array relationship"""
+  token(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): [token!]!
+
+  """An aggregate relationship"""
+  token_aggregate(
+    """distinct select on columns"""
+    distinct_on: [token_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_order_by!]
+
+    """filter the rows returned"""
+    where: token_bool_exp
+  ): token_aggregate!
+
+  """fetch data from the table: "token" using primary key columns"""
+  token_by_pk(id: Int!): token
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "token"
+"""
+type token {
+  address: String!
+  id: Int!
+
+  """An object relationship"""
+  ipfs: ipfs
+  ipfs_id: Int
+
+  """An array relationship"""
+  listing(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): [listing!]!
+
+  """An aggregate relationship"""
+  listing_aggregate(
+    """distinct select on columns"""
+    distinct_on: [listing_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [listing_order_by!]
+
+    """filter the rows returned"""
+    where: listing_bool_exp
+  ): listing_aggregate!
+
+  """An array relationship"""
+  loan(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): [loan!]!
+
+  """An aggregate relationship"""
+  loan_aggregate(
+    """distinct select on columns"""
+    distinct_on: [loan_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [loan_order_by!]
+
+    """filter the rows returned"""
+    where: loan_bool_exp
+  ): loan_aggregate!
+  owner: String!
+  token_id: Int!
+  uid: Int!
+}
+
+"""
+aggregated selection of "token"
+"""
+type token_aggregate {
+  aggregate: token_aggregate_fields
+  nodes: [token!]!
+}
+
+"""
+aggregate fields of "token"
+"""
+type token_aggregate_fields {
+  avg: token_avg_fields
+  count(columns: [token_select_column!], distinct: Boolean): Int!
+  max: token_max_fields
+  min: token_min_fields
+  stddev: token_stddev_fields
+  stddev_pop: token_stddev_pop_fields
+  stddev_samp: token_stddev_samp_fields
+  sum: token_sum_fields
+  var_pop: token_var_pop_fields
+  var_samp: token_var_samp_fields
+  variance: token_variance_fields
+}
+
+"""
+order by aggregate values of table "token"
+"""
+input token_aggregate_order_by {
+  avg: token_avg_order_by
+  count: order_by
+  max: token_max_order_by
+  min: token_min_order_by
+  stddev: token_stddev_order_by
+  stddev_pop: token_stddev_pop_order_by
+  stddev_samp: token_stddev_samp_order_by
+  sum: token_sum_order_by
+  var_pop: token_var_pop_order_by
+  var_samp: token_var_samp_order_by
+  variance: token_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "token"
+"""
+input token_arr_rel_insert_input {
+  data: [token_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: token_on_conflict
+}
+
+"""aggregate avg on columns"""
+type token_avg_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by avg() on columns of table "token"
+"""
+input token_avg_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "token". All fields are combined with a logical 'AND'.
+"""
+input token_bool_exp {
+  _and: [token_bool_exp!]
+  _not: token_bool_exp
+  _or: [token_bool_exp!]
+  address: String_comparison_exp
+  id: Int_comparison_exp
+  ipfs: ipfs_bool_exp
+  ipfs_id: Int_comparison_exp
+  listing: listing_bool_exp
+  loan: loan_bool_exp
+  owner: String_comparison_exp
+  token_id: Int_comparison_exp
+  uid: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "token"
+"""
+enum token_constraint {
+  """unique or primary key constraint"""
+  token_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "token"
+"""
+input token_inc_input {
+  id: Int
+  ipfs_id: Int
+  token_id: Int
+  uid: Int
+}
+
+"""
+input type for inserting data into table "token"
+"""
+input token_insert_input {
+  address: String
+  id: Int
+  ipfs: ipfs_obj_rel_insert_input
+  ipfs_id: Int
+  listing: listing_arr_rel_insert_input
+  loan: loan_arr_rel_insert_input
+  owner: String
+  token_id: Int
+  uid: Int
+}
+
+"""aggregate max on columns"""
+type token_max_fields {
+  address: String
+  id: Int
+  ipfs_id: Int
+  owner: String
+  token_id: Int
+  uid: Int
+}
+
+"""
+order by max() on columns of table "token"
+"""
+input token_max_order_by {
+  address: order_by
+  id: order_by
+  ipfs_id: order_by
+  owner: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate min on columns"""
+type token_min_fields {
+  address: String
+  id: Int
+  ipfs_id: Int
+  owner: String
+  token_id: Int
+  uid: Int
+}
+
+"""
+order by min() on columns of table "token"
+"""
+input token_min_order_by {
+  address: order_by
+  id: order_by
+  ipfs_id: order_by
+  owner: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""
+response of any mutation on the table "token"
+"""
+type token_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [token!]!
+}
+
+"""
+input type for inserting object relation for remote table "token"
+"""
+input token_obj_rel_insert_input {
+  data: token_insert_input!
+
+  """upsert condition"""
+  on_conflict: token_on_conflict
+}
+
+"""
+on_conflict condition type for table "token"
+"""
+input token_on_conflict {
+  constraint: token_constraint!
+  update_columns: [token_update_column!]! = []
+  where: token_bool_exp
+}
+
+"""Ordering options when selecting data from "token"."""
+input token_order_by {
+  address: order_by
+  id: order_by
+  ipfs: ipfs_order_by
+  ipfs_id: order_by
+  listing_aggregate: listing_aggregate_order_by
+  loan_aggregate: loan_aggregate_order_by
+  owner: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""primary key columns input for table: token"""
+input token_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "token"
+"""
+enum token_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  id
+
+  """column name"""
+  ipfs_id
+
+  """column name"""
+  owner
+
+  """column name"""
+  token_id
+
+  """column name"""
+  uid
+}
+
+"""
+input type for updating data in table "token"
+"""
+input token_set_input {
+  address: String
+  id: Int
+  ipfs_id: Int
+  owner: String
+  token_id: Int
+  uid: Int
+}
+
+"""aggregate stddev on columns"""
+type token_stddev_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by stddev() on columns of table "token"
+"""
+input token_stddev_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type token_stddev_pop_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by stddev_pop() on columns of table "token"
+"""
+input token_stddev_pop_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type token_stddev_samp_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by stddev_samp() on columns of table "token"
+"""
+input token_stddev_samp_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate sum on columns"""
+type token_sum_fields {
+  id: Int
+  ipfs_id: Int
+  token_id: Int
+  uid: Int
+}
+
+"""
+order by sum() on columns of table "token"
+"""
+input token_sum_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""
+update columns of table "token"
+"""
+enum token_update_column {
+  """column name"""
+  address
+
+  """column name"""
+  id
+
+  """column name"""
+  ipfs_id
+
+  """column name"""
+  owner
+
+  """column name"""
+  token_id
+
+  """column name"""
+  uid
+}
+
+"""aggregate var_pop on columns"""
+type token_var_pop_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by var_pop() on columns of table "token"
+"""
+input token_var_pop_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate var_samp on columns"""
+type token_var_samp_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by var_samp() on columns of table "token"
+"""
+input token_var_samp_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
+
+"""aggregate variance on columns"""
+type token_variance_fields {
+  id: Float
+  ipfs_id: Float
+  token_id: Float
+  uid: Float
+}
+
+"""
+order by variance() on columns of table "token"
+"""
+input token_variance_order_by {
+  id: order_by
+  ipfs_id: order_by
+  token_id: order_by
+  uid: order_by
+}
