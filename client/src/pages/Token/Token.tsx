@@ -57,6 +57,7 @@ export default function Token() {
   const { data: [listing] = [undefined] } = useListings({
     where: {
       cancelled: { _eq: false },
+      accepted: { _eq: false },
       token: {
         id: {
           _eq: token?.id,
@@ -119,7 +120,7 @@ export default function Token() {
     })
 
     return () => clearInterval(interval)
-  }, [])
+  }, [loan, loanExpired])
 
   const actions: ActionType[] = useMemo(() => {
     const _actions: ActionType[] = []
@@ -174,7 +175,7 @@ export default function Token() {
 
   return (
     <div className="flex flex-col items-stretch gap-2">
-      <div className="grid gap-2 grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
         <div className="bg-gray-600 shadow-md grid place-items-center flex-1 p-5">
           <img
             src={utils.getTokenImageUrl(token.ipfs?.image)}
