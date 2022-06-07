@@ -332,17 +332,19 @@ export default function Token() {
                               Cancel
                             </Button>
                           )}
-                        {!offer.cancelled && user === token.owner && (
-                          <Button
-                            variant="secondary"
-                            onClick={() =>
-                              contract.acceptOffer({
-                                offerId: offer.id,
-                              })
-                            }>
-                            Accept
-                          </Button>
-                        )}
+                        {!offer.cancelled &&
+                          !offer.accepted &&
+                          user === token.owner && (
+                            <Button
+                              variant="secondary"
+                              onClick={() =>
+                                contract.acceptOffer({
+                                  offerId: offer.id,
+                                })
+                              }>
+                              Accept
+                            </Button>
+                          )}
                       </td>
                     </tr>
                   ))}

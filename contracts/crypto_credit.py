@@ -351,8 +351,9 @@ class CryptoCredit(sp.Contract):
         # # check if loan is not repaid already
         sp.verify_equal(loan.repaid, sp.none, message="LOAN_ALREADY_REPAID")
 
-        expired = sp.timestamp_from_utc_now() > loan.start_time.add_seconds(
-            sp.to_int(loan.duration))
+        expired = sp.now > loan.start_time.add_seconds(
+            sp.to_int(loan.duration)
+        )
 
         is_lender = sp.sender == loan.lender
         is_loanee = sp.sender == loan.loanee

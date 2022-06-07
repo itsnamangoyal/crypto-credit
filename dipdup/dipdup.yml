@@ -39,7 +39,7 @@ contracts:
     typename: tezotopia_nft_registery
 
   crypto_credit:
-    address: KT1D69JQRNLN4vkiE4nRtU4atpC5QZjtn2Ap
+    address: KT1CWyZrnJaabUbJLoab3MUj4Uj6i48jDG1A
     typename: crypto_credit
 
 indexes:
