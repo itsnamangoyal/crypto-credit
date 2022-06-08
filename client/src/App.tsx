@@ -1,4 +1,9 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useNavigate,
+} from "react-router-dom"
 
 import { Header } from "components"
 import { Token, Lend, Borrow, Offers, Loans } from "pages"
@@ -18,11 +23,12 @@ function App() {
         <Header />
         <div className="p-5 flex-1 flex flex-col">
           <Routes>
-            <Route path="lend" element={<Lend />} />
             <Route path="borrow" element={<Borrow />} />
             <Route path="asset/:address/:tokenId" element={<Token />} />
             <Route path="offers" element={<Offers />} />
             <Route path="loans" element={<Loans />} />
+            <Route path="lend" element={<Lend />} />
+            <Route path="*" element={<Redirect />} />
           </Routes>
         </div>
       </div>
@@ -31,3 +37,13 @@ function App() {
 }
 
 export default App
+
+function Redirect() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate("/lend")
+  }, [])
+
+  return null
+}
