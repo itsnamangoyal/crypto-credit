@@ -8,7 +8,7 @@ export const httpClient = createClient({
 
 console.log("Creating ws grahql client for indexer")
 export const wsClient = createClient({
-  url: CONFIG.GRAPHQL_ENDPOINT.replace(/http[s]*:\/\//, "ws://"),
+  url: CONFIG.GRAPHQL_ENDPOINT.replace(/http[s]*:\/\//, "wss://"),
   batch: true,
 })
 
